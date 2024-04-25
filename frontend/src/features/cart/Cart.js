@@ -1,16 +1,15 @@
-import { Fragment, useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useState } from "react";
+import { Grid } from "react-loader-spinner";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, Navigate } from "react-router-dom";
+import { discountedPrice } from "../../app/constants";
+import Modal from "../common/Modal";
 import {
   deleteItemFromCartAsync,
   selectCartStatus,
   selectItems,
   updateCartAsync,
-} from './cartSlice';
-import { Link } from 'react-router-dom';
-import { Navigate } from 'react-router-dom';
-import { discountedPrice } from '../../app/constants';
-import { Grid } from 'react-loader-spinner';
-import Modal from '../common/Modal';
+} from "./cartSlice";
 
 export default function Cart() {
   const dispatch = useDispatch();
@@ -26,7 +25,7 @@ export default function Cart() {
   const totalItems = items.reduce((total, item) => item.quantity + total, 0);
 
   const handleQuantity = (e, item) => {
-    dispatch(updateCartAsync({id:item.id, quantity: +e.target.value }));
+    dispatch(updateCartAsync({ id: item.id, quantity: +e.target.value }));
   };
 
   const handleRemove = (e, id) => {
@@ -44,7 +43,7 @@ export default function Cart() {
               Cart
             </h1>
             <div className="flow-root">
-              {status === 'loading' ? (
+              {status === "loading" ? (
                 <Grid
                   height="80"
                   width="80"
@@ -73,7 +72,9 @@ export default function Cart() {
                           <h3>
                             <a href={item.product.id}>{item.product.title}</a>
                           </h3>
-                          <p className="ml-4">${discountedPrice(item.product)}</p>
+                          <p className="ml-4">
+                            ${discountedPrice(item.product)}
+                          </p>
                         </div>
                         <p className="mt-1 text-sm text-gray-500">
                           {item.product.brand}
@@ -106,13 +107,15 @@ export default function Cart() {
                             dangerOption="Delete"
                             cancelOption="Cancel"
                             dangerAction={(e) => handleRemove(e, item.id)}
-                            cancelAction={()=>setOpenModal(null)}
+                            cancelAction={() => setOpenModal(null)}
                             showModal={openModal === item.id}
                           ></Modal>
                           <button
-                            onClick={e=>{setOpenModal(item.id)}}
+                            onClick={(e) => {
+                              setOpenModal(item.id);
+                            }}
                             type="button"
-                            className="font-medium text-indigo-600 hover:text-indigo-500"
+                            className="font-medium text-pink-600 hover:text-pink-500"
                           >
                             Remove
                           </button>
@@ -134,26 +137,23 @@ export default function Cart() {
               <p>Total Items in Cart</p>
               <p>{totalItems} items</p>
             </div>
-            <p className="mt-0.5 text-sm text-gray-500">
-              Shipping and taxes calculated at checkout.
-            </p>
+            <p className="mt-0.5 text-sm text-gray-500">Total Amount</p>
             <div className="mt-6">
               <Link
                 to="/checkout"
-                className="flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-indigo-700"
+                className="flex items-center justify-center rounded-md border border-transparent bg-pink-600 px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-pink-700"
               >
                 Checkout
               </Link>
             </div>
             <div className="mt-6 flex justify-center text-center text-sm text-gray-500">
               <p>
-                or
                 <Link to="/">
                   <button
                     type="button"
-                    className="font-medium text-indigo-600 hover:text-indigo-500"
+                    className="font-medium text-pink-600 hover:text-pink-500"
                   >
-                    Continue Shopping
+                    HOME
                     <span aria-hidden="true"> &rarr;</span>
                   </button>
                 </Link>

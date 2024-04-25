@@ -15,9 +15,9 @@ const navigation = [
   { name: "Orders", link: "/admin/orders", admin: true },
 ];
 const userNavigation = [
-  { name: "My Profile", link: "/profile" },
-  { name: "My Orders", link: "/orders" },
-  { name: "Sign out", link: "/logout" },
+  { name: "Profile", link: "/profile" },
+  { name: "Orders", link: "/orders" },
+  { name: "Log out", link: "/logout" },
 ];
 
 function classNames(...classes) {
@@ -31,7 +31,7 @@ function NavBar({ children }) {
   return (
     <>
       <div className="min-h-full">
-        <Disclosure as="nav" className="bg-indigo-800">
+        <Disclosure as="nav" className="bg-pink-800">
           {({ open }) => (
             <>
               <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
